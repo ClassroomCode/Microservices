@@ -18,6 +18,11 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+using (var scope = app.Services.CreateScope()) {
+    var context = scope.ServiceProvider.GetService<ECommDbContext>();
+    context?.AddSeedData();
+}
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment()) {
     app.UseSwagger();
