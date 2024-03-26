@@ -1,6 +1,14 @@
+using ECommService.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Services.AddDbContext<ECommDbContext>(opt => 
+    opt.UseInMemoryDatabase("ECommDb"));
+
+builder.Services.AddScoped<IRepository, Repository>();
 
 builder.Services.AddControllers();
 
