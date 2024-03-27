@@ -1,0 +1,6 @@
+@ECommService_HostAddress = http://localhost:5117
+
+GET {{ECommService_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

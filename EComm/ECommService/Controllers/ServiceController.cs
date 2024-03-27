@@ -102,10 +102,10 @@ public class ServiceController : ControllerBase
     public async Task<ActionResult<double>> GetShippingCost(PendingOrderRequest order, CancellationToken token)
     {
         var customer = await _repository.GetCustomerAsync(order.CustomerId, token);
-        if (customer == null) return BadRequest("Customer does not exist");
-        if (customer.PostalCode == null) return BadRequest("Missing postal code for customer");
+        if (customer is null) return BadRequest("Customer does not exist");
+        if (customer.PostalCode is null) return BadRequest("Missing postal code for customer");
         var product = await _repository.GetProductAsync(order.ProductId, token);
-        if (product == null) return BadRequest("Product does not exist");
+        if (product is null) return BadRequest("Product does not exist");
 
         return CalculateShippingCost(product, order.Quantity, customer.PostalCode);
     }
