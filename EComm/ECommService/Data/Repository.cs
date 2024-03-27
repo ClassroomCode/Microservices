@@ -1,5 +1,7 @@
 ﻿using ECommService.Data.Entities;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace ECommService.Data;
 
