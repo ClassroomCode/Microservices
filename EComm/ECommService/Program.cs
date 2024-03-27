@@ -16,6 +16,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors(options => {
+    options.AddPolicy("MyPolicy", policy => {
+        policy.AllowAnyOrigin();
+        policy.AllowAnyMethod();
+    });
+});
+
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope()) {
@@ -28,6 +35,8 @@ if (app.Environment.IsDevelopment()) {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("MyPolicy");
 
 app.UseAuthorization();
 

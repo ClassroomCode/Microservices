@@ -1,4 +1,5 @@
-﻿namespace ECommService.Data.Entities
+﻿
+namespace ECommService.Data.Entities
 {
     public class Customer
     {

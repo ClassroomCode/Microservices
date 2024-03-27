@@ -22,6 +22,19 @@ public class ServiceController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IEnumerable<Product>> GetAllProducts(CancellationToken token)
     {
+        /*
+        try {
+            _logger.LogInformation("Starting slow task");
+
+            await Task.Delay(10000, token);
+
+            _logger.LogInformation("Fisnihed slow task");
+        } catch (TaskCanceledException ex) {
+            _logger.LogInformation("Slow task cancelled");
+        }
+        return Array.Empty<Product>();
+        */
+
         return await _repository.GetAllProductsAsync(token);
     }
 
@@ -33,6 +46,7 @@ public class ServiceController : ControllerBase
     {
         var product = await _repository.GetProductAsync(id, token);
         if (product == null) return NotFound();
+
         return product;
     }
 
@@ -54,7 +68,7 @@ public class ServiceController : ControllerBase
     {
         var customer = await _repository.AddCustomerAsync(newCustomer.Name, newCustomer.PostalCode, token);
 
-        return CreatedAtAction("GetProduct", new { id = customer.Id }, customer);
+        return CreatedAtAction("GetCustomer", new { id = customer.Id }, customer);
     }
 
     [HttpDelete("customer/{id}")]

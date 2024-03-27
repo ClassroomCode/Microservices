@@ -44,7 +44,7 @@ public class Repository : IRepository
     {
         var customer = await _context.Customers.SingleOrDefaultAsync(c => c.Id == id, token);
 
-        if (customer != null) {
+        if (customer is not null) {
             _context.Customers.Remove(customer);
             int n = await _context.SaveChangesAsync();
             return (n > 0);

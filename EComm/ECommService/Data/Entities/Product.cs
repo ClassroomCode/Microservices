@@ -1,4 +1,6 @@
-﻿namespace ECommService.Data.Entities;
+﻿using System.Text.Json.Serialization;
+
+namespace ECommService.Data.Entities;
 
 public class Product
 {
