@@ -1,6 +1,7 @@
 ﻿using ECommService.Data;
 using Microsoft.AspNetCore.Mvc;
 using OrderService.Data.Entities;
+using OrderService.ServiceClients;
 
 namespace OrderService.Controllers;
 
@@ -8,12 +9,15 @@ namespace OrderService.Controllers;
 public class OrderController : ControllerBase
 {
     private readonly IOrderRepository _repository;
+    private readonly IInventoryServiceClient _inventoryServiceClient;
     private readonly ILogger<OrderController> _logger;
 
     public OrderController(IOrderRepository repository, 
+        IInventoryServiceClient inventoryServiceClient,
         ILogger<OrderController> logger)
     {
         _repository = repository;
+        _inventoryServiceClient = inventoryServiceClient;
         _logger = logger;
     }
 
@@ -31,9 +35,9 @@ public class OrderController : ControllerBase
     public async Task<ActionResult<Order>> AddOrder(Order order)
     {
         try {
-            // TODO: Reduce inventory
 
             await _repository.AddOrderAsync(order);
+
             return CreatedAtAction("GetOrder", new { id = order.Id }, order);
         } catch {
             return StatusCode(500, "Bad Things");
