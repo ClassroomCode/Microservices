@@ -34,13 +34,12 @@ public class OrderController : ControllerBase
     [HttpPost("order")]
     public async Task<ActionResult<Order>> AddOrder(Order order)
     {
-        try {
+        int r = await _inventoryServiceClient.ReduceInventoryAsync(order.ProductId, order.Quantity);
 
+        if (r >= 0) {
             await _repository.AddOrderAsync(order);
-
-            return CreatedAtAction("GetOrder", new { id = order.Id }, order);
-        } catch {
-            return StatusCode(500, "Bad Things");
         }
+
+        return CreatedAtAction("GetOrder", new { id = order.Id }, order);
     }
 }

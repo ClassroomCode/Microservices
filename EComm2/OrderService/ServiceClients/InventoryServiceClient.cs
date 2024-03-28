@@ -13,8 +13,14 @@ public class InventoryServiceClient : IInventoryServiceClient
         _logger = logger;
     }
 
-    public Task<int> ReduceInventoryAsync(int productId, int count)
+    public async Task<int> ReduceInventoryAsync(int productId, int count)
     {
-        throw new NotImplementedException();
+        var response = await _httpClient.GetAsync($"inventory/reduce/{productId}/{count}");
+
+        if (response.StatusCode == System.Net.HttpStatusCode.BadRequest) {
+            return -1;
+        }
+
+        return await response.Content.ReadFromJsonAsync<int>();
     }
 }

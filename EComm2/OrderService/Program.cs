@@ -4,9 +4,9 @@ using OrderService.ServiceClients;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddScoped<IInventoryServiceClient, InventoryServiceClient>();
+//builder.Services.AddScoped<IInventoryServiceClient, InventoryServiceClient>();
 
-builder.Services.AddHttpClient<InventoryServiceClient>("InventoryService", client => {
+builder.Services.AddHttpClient<IInventoryServiceClient, InventoryServiceClient>(client => {
     client.BaseAddress = new Uri(builder.Configuration["InventoryService:BaseAddress"]!);
 });
 
