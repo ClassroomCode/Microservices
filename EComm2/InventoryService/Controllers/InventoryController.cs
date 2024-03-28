@@ -35,6 +35,8 @@ public class InventoryController : ControllerBase
     [HttpGet("inventory/reduce/{id}/{count}")]
     public async Task<ActionResult<int>> ReduceProductInventory(int id, int count)
     {
+        return StatusCode(500);
+
         var newCount = await _repository.ReduceInventoryAsync(id, count);
 
         if (newCount == -1) return BadRequest();

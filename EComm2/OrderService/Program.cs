@@ -1,35 +1,19 @@
 using ECommService.Data;
 using Microsoft.EntityFrameworkCore;
+using OrderService;
 using OrderService.ServiceClients;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//builder.Services.AddScoped<IInventoryServiceClient, InventoryServiceClient>();
+#region Services
 
-builder.Services.AddHttpClient<IInventoryServiceClient, InventoryServiceClient>(client => {
-    client.BaseAddress = new Uri(builder.Configuration["InventoryService:BaseAddress"]!);
-});
+ConfigureServices.Configure(builder);
 
-builder.Services.AddControllers();
-
-builder.Services.AddDbContext<OrderDbContext>(opt =>
-    opt.UseInMemoryDatabase("OrderDb"));
-
-builder.Services.AddScoped<IOrderRepository, OrderRepository>();
-
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-builder.Services.AddCors(options => {
-    options.AddPolicy("MyPolicy",
-        policy => {
-            policy.AllowAnyMethod();
-            policy.AllowAnyOrigin();
-        });
-});
+#endregion Services
 
 var app = builder.Build();
+
+#region Pipeline
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment()) {
@@ -42,5 +26,7 @@ app.UseCors("MyPolicy");
 app.UseAuthorization();
 
 app.MapControllers();
+
+#endregion Pipeline
 
 app.Run();
