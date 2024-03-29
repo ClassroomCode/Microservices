@@ -1,6 +1,7 @@
 ﻿using ECommService.Data;
 using Microsoft.AspNetCore.Mvc;
 using OrderService.Data.Entities;
+using OrderService.RabbitMq;
 using OrderService.ServiceClients;
 
 namespace OrderService.Controllers;
@@ -10,14 +11,17 @@ public class OrderController : ControllerBase
 {
     private readonly IOrderRepository _repository;
     private readonly IInventoryServiceClient _inventoryServiceClient;
+    private readonly IMessageProducer _messageProducer;
     private readonly ILogger<OrderController> _logger;
 
     public OrderController(IOrderRepository repository, 
         IInventoryServiceClient inventoryServiceClient,
+        IMessageProducer messageProducer,
         ILogger<OrderController> logger)
     {
         _repository = repository;
         _inventoryServiceClient = inventoryServiceClient;
+        _messageProducer = messageProducer;
         _logger = logger;
     }
 
@@ -38,6 +42,8 @@ public class OrderController : ControllerBase
 
         if (r >= 0) {
             await _repository.AddOrderAsync(order);
+
+            _messageProducer.SendMessage(order);
         }
 
         return CreatedAtAction("GetOrder", new { id = order.Id }, order);

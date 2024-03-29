@@ -1,5 +1,6 @@
 ﻿using ECommService.Data;
 using Microsoft.EntityFrameworkCore;
+using OrderService.RabbitMq;
 using OrderService.ServiceClients;
 
 namespace OrderService;
@@ -8,6 +9,8 @@ public static class ConfigureServices
 {
     public static void Configure(WebApplicationBuilder builder)
     {
+        builder.Services.AddScoped<IMessageProducer, MessageProducer>();
+
         //builder.Services.AddScoped<IInventoryServiceClient, InventoryServiceClient>();
 
         builder.Services.AddHttpClient<IInventoryServiceClient, InventoryServiceClient>(client => {

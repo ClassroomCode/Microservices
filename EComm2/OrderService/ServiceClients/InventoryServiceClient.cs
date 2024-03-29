@@ -1,5 +1,5 @@
-﻿
-using Polly;
+﻿using Polly;
+using Polly.CircuitBreaker;
 using Polly.Contrib.WaitAndRetry;
 using System.Net;
 
@@ -17,6 +17,10 @@ public class InventoryServiceClient : IInventoryServiceClient
             //.RetryAsync(2);
             .WaitAndRetryAsync(Backoff.DecorrelatedJitterBackoffV2(TimeSpan.FromSeconds(1), 3));
 
+    private static readonly AsyncCircuitBreakerPolicy<HttpResponseMessage> _circuitBreakPolicy =
+        Policy.HandleResult<HttpResponseMessage>(message => (int)message.StatusCode == 503)
+        .CircuitBreakerAsync(2, TimeSpan.FromMinutes(1));
+         
     public InventoryServiceClient(HttpClient httpClient, 
         ILogger<InventoryServiceClient> logger)
     {
@@ -26,11 +30,9 @@ public class InventoryServiceClient : IInventoryServiceClient
 
     public async Task<int> ReduceInventoryAsync(int productId, int count)
     {
-        var response = await _retryPolicy.ExecuteAsync(() => {
-            _logger.LogInformation("Trying to call inventory service");
-            return _httpClient.GetAsync($"inventory/reduce/{productId}/{count}");
-        }
-        );
+        var response = await _circuitBreakPolicy.ExecuteAsync(() =>
+            _retryPolicy.ExecuteAsync(() =>
+            _httpClient.GetAsync($"inventory/reduce/{productId}/{count}")));
 
         if (response.StatusCode == System.Net.HttpStatusCode.BadRequest) {
             return -1;

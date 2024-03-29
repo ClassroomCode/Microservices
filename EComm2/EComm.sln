@@ -5,15 +5,17 @@ VisualStudioVersion = 17.9.34714.143
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ECommService", "ECommService\ECommService.csproj", "{639401D8-F8FD-463A-AC0A-D8B103296EE9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductService", "ProductService\ProductService.csproj", "{2DF8058D-67D5-486C-9959-57616561E574}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductService", "ProductService\ProductService.csproj", "{2DF8058D-67D5-486C-9959-57616561E574}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerService", "CustomerService\CustomerService.csproj", "{2B56C47A-F9FE-4233-B629-D8699CB4928D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomerService", "CustomerService\CustomerService.csproj", "{2B56C47A-F9FE-4233-B629-D8699CB4928D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderService", "OrderService\OrderService.csproj", "{89959362-67F6-459B-8888-CB39AE156D0F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderService", "OrderService\OrderService.csproj", "{89959362-67F6-459B-8888-CB39AE156D0F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShippingService", "ShippingService\ShippingService.csproj", "{CEA203A3-3FB0-4F19-B138-B512C118CEAF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShippingService", "ShippingService\ShippingService.csproj", "{CEA203A3-3FB0-4F19-B138-B512C118CEAF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryService", "InventoryService\InventoryService.csproj", "{856154C1-DACD-48BC-B391-F2D04AACE9AF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InventoryService", "InventoryService\InventoryService.csproj", "{856154C1-DACD-48BC-B391-F2D04AACE9AF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoyaltyService", "LoyaltyService\LoyaltyService.csproj", "{43181B35-9C50-4DA7-BA2E-A5B5736E501A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{856154C1-DACD-48BC-B391-F2D04AACE9AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{856154C1-DACD-48BC-B391-F2D04AACE9AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{856154C1-DACD-48BC-B391-F2D04AACE9AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43181B35-9C50-4DA7-BA2E-A5B5736E501A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43181B35-9C50-4DA7-BA2E-A5B5736E501A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43181B35-9C50-4DA7-BA2E-A5B5736E501A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43181B35-9C50-4DA7-BA2E-A5B5736E501A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
